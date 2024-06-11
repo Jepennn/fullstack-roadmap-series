@@ -2,7 +2,15 @@
  * TODO: Implement a function that clears all the content
  * prior to generating new random content
  */
-function clearAll() {}
+function clearAll() {
+
+  const memeImage = document.getElementById("meme-heading");
+  const jokeElement = document.getElementById("joke-heading");
+  const quoteElement = document.getElementById("wisedom-heading");
+  const riddleElement = document.getElementById("riddle-heading");
+
+
+}
 
 /**
  * TODO:
@@ -12,6 +20,17 @@ function clearAll() {}
 function showMeme() {
   // Value is a string representing image URL
   const randomMemeUrl = getRandomData("memes");
+
+  //Creates a new image element to display the meme
+  const memeImage = document.createElement("img");
+  memeImage.src = randomMemeUrl;
+
+  //Find Programmer memes heading
+  const memeHeading = document.getElementById("meme-heading");
+
+  // Add meme image after the meme heading
+  memeHeading.insertAdjacentElement("afterend", memeImage);
+
 }
 
 /**
@@ -22,6 +41,16 @@ function showMeme() {
 function showJoke() {
   // Value is a string representing the joke
   const randomJokeText = getRandomData("jokes");
+
+  //Creates a new paragraph element to display the joke
+  const jokeElement = document.createElement("p");
+  jokeElement.textContent = randomJokeText;
+
+  //Find Programmer jokes heading
+  const jokeHeading = document.getElementById("joke-heading");
+
+  // Add joke element after the joke heading
+  jokeHeading.insertAdjacentElement("afterend", jokeElement);
 }
 
 /**
@@ -32,6 +61,24 @@ function showJoke() {
 function showQuote() {
   // Value should be in format: { quote: '', author: '' }
   const randomQuote = getRandomData("quotes");
+
+  //Creates a new paragraph element to display the quote
+  const quoteElement = document.createElement("p");
+  quoteElement.textContent = randomQuote.quote;
+
+  //Creates a new paragraph element to display the author
+  const authorElement = document.createElement("p");
+  authorElement.textContent = "- " + randomQuote.author;
+
+  //Find Programmer quotes heading
+  const quoteHeading = document.getElementById("wisedom-heading");
+
+  // Add quote element after the quote heading
+  quoteHeading.insertAdjacentElement("afterend", quoteElement);
+  // Add author element after the quote element
+  quoteElement.insertAdjacentElement("afterend", authorElement);
+
+
 }
 
 /**
@@ -43,6 +90,20 @@ function showQuote() {
 function showRiddle() {
   // Value should be in format: { question: '', answer: '' }
   const randomRiddle = getRandomData("riddles");
+
+  //Creates a new paragraph element to display the riddle and the riddle content
+  const riddleElement = document.createElement("p");
+  riddleElement.textContent = randomRiddle.question;
+
+  //Creates a new paragraph element to display the answer
+  const answerElement = document.createElement("p");
+
+  //Find Programmer riddles heading
+  const riddleHeading = document.getElementById("riddle-heading");
+
+  // Add riddle element after the riddle heading
+  riddleHeading.insertAdjacentElement("afterend", riddleElement);
+
 }
 
 /**
