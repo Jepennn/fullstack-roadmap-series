@@ -1,119 +1,129 @@
-/**
- * TODO: Implement a function that clears all the content
- * prior to generating new random content
- */
+
+
+/*function that clears all the content*/
 function clearAll() {
+  const memeContainer = document.getElementById("meme-container");
+  const jokeContainer = document.getElementById("joke-container");
+  const quoteContainer = document.getElementById("quote-container");
+  const riddleContainer = document.getElementById("riddle-container");
 
-  const memeImage = document.getElementById("meme-heading");
-  const jokeElement = document.getElementById("joke-heading");
-  const quoteElement = document.getElementById("wisedom-heading");
-  const riddleElement = document.getElementById("riddle-heading");
-
-
+  // Clear all the content under the headings
+  memeContainer.innerHTML = "";
+  jokeContainer.innerHTML = "";
+  quoteContainer.innerHTML = "";
+  riddleContainer.innerHTML = "";
 }
 
-/**
- * TODO:
- * - Show a random Meme in the correct location
- * - Never show more than 1 meme at a time
- */
+/*Function that shows the meme*/
 function showMeme() {
   // Value is a string representing image URL
   const randomMemeUrl = getRandomData("memes");
 
-  //Creates a new image element to display the meme
+  //Find the meme container
+  const memeContainer = document.getElementById("meme-container");
+
+  // Create an image element
   const memeImage = document.createElement("img");
   memeImage.src = randomMemeUrl;
+  
+  //clear all the content before adding new content
+  clearAll();
 
-  //Find Programmer memes heading
-  const memeHeading = document.getElementById("meme-heading");
-
-  // Add meme image after the meme heading
-  memeHeading.insertAdjacentElement("afterend", memeImage);
+  // Append the image to the container
+  memeContainer.appendChild(memeImage);
 
 }
 
-/**
- * TODO:
- * - Show a random joke in the correct location
- * - Never show more than 1 joke at a time
- */
+/*Function that shows a joke*/
 function showJoke() {
   // Value is a string representing the joke
   const randomJokeText = getRandomData("jokes");
 
-  //Creates a new paragraph element to display the joke
-  const jokeElement = document.createElement("p");
-  jokeElement.textContent = randomJokeText;
+  // Find the joke container
+  const jokeContainer = document.getElementById("joke-container");
 
-  //Find Programmer jokes heading
-  const jokeHeading = document.getElementById("joke-heading");
+  // Create a paragraph element
+  const jokeParagraph = document.createElement("p");
+  jokeParagraph.textContent = randomJokeText;
 
-  // Add joke element after the joke heading
-  jokeHeading.insertAdjacentElement("afterend", jokeElement);
+  // Clear all the content before adding new content
+  clearAll();
+
+  // Append the paragraph to the container
+  jokeContainer.appendChild(jokeParagraph);
+
 }
 
-/**
- * TODO:
- * - Show a random quote in the correct location
- * - Never show more than 1 quote at a time
- */
+/*Function that shows a quote */
 function showQuote() {
   // Value should be in format: { quote: '', author: '' }
   const randomQuote = getRandomData("quotes");
 
-  //Creates a new paragraph element to display the quote
-  const quoteElement = document.createElement("p");
-  quoteElement.textContent = randomQuote.quote;
+  // Find the quote container
+  const quoteContainer = document.getElementById("quote-container");
 
-  //Creates a new paragraph element to display the author
-  const authorElement = document.createElement("p");
-  authorElement.textContent = "- " + randomQuote.author;
+  // Create a paragraph element
+  const quoteParagraph = document.createElement("p");
+  const authorParagraph = document.createElement("p");
+  quoteParagraph.textContent = randomQuote.quote;
+  authorParagraph.textContent = "- " + randomQuote.author;
 
-  //Find Programmer quotes heading
-  const quoteHeading = document.getElementById("wisedom-heading");
+  // Clear all the content before adding new content
+  clearAll();
 
-  // Add quote element after the quote heading
-  quoteHeading.insertAdjacentElement("afterend", quoteElement);
-  // Add author element after the quote element
-  quoteElement.insertAdjacentElement("afterend", authorElement);
-
-
+  // Add the quote and author to the container
+  quoteContainer.appendChild(quoteParagraph);
+  quoteContainer.appendChild(authorParagraph);
 }
 
-/**
- * TODO:
- * - Show a random riddle in the correct location
- * - Never show more than 1 riddle at a time
- * - Always hide the riddle's answer initially
- */
+// Function to show a riddle
 function showRiddle() {
   // Value should be in format: { question: '', answer: '' }
   const randomRiddle = getRandomData("riddles");
 
-  //Creates a new paragraph element to display the riddle and the riddle content
-  const riddleElement = document.createElement("p");
-  riddleElement.textContent = randomRiddle.question;
+  // Find the riddle container
+  const riddleContainer = document.getElementById("riddle-container");
 
-  //Creates a new paragraph element to display the answer
-  const answerElement = document.createElement("p");
+  // Create a paragraph element
+  const riddleParagraph = document.createElement("p"); 
+  riddleParagraph.textContent = randomRiddle.question;
 
-  //Find Programmer riddles heading
-  const riddleHeading = document.getElementById("riddle-heading");
+  // Create a paragraph element for the answer
+  const answerParagraph = document.createElement("p");
+  answerParagraph.textContent = randomRiddle.answer;
+  answerParagraph.setAttribute("id", "riddle-answer");
+  answerParagraph.hidden = true;
 
-  // Add riddle element after the riddle heading
-  riddleHeading.insertAdjacentElement("afterend", riddleElement);
+  // Clear all the content before adding new content
+  clearAll();
 
+  // Append the paragraph to the container
+  riddleContainer.appendChild(riddleParagraph);
+  riddleContainer.appendChild(answerParagraph);
 }
 
-/**
- * TODO: Unhide the riddle's answer
- * - If there is no riddle shown, alert the user that there is no riddle
- * - If there is a riddle shown and an answer shown, alert the user
- *   that the answer is already revealed
- * - If there is a riddle shown but no answer, unhide the answer!
- */
-function revealAnswers() {}
+// Function to reveal the answer to the riddle
+function revealAnswers() {
+  // Find the riddle container
+  const riddleContainer = document.getElementById("riddle-container");
+  const riddle = riddleContainer.querySelector("p");
+  const answer = document.getElementById("riddle-answer");
+
+  // If there is no riddle shown, alert the user that there is no riddle
+  if (!riddle) {
+    alert("There is no riddle to reveal the answer to!");
+  } else {
+    // If there is a riddle shown and an answer shown, alert the user that the answer is already revealed
+    if (answer.hidden === false) {
+      alert("The answer is already revealed!");
+    } else {
+      // If there is a riddle shown but no answer, unhide the answer!
+      answer.hidden = false;
+    }
+  }
+
+
+}
 
 /**
  * This function is used to get random data.  Don't worry about how it works, just know how to use it.  Usage is pre-filled in the functions above already, but here's an explanation of the function anyways.
